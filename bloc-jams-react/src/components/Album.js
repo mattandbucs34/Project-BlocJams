@@ -12,11 +12,14 @@ class Album extends Component {
         this.state = {
             album: album,
             currentSong: album.songs[0],
-            isPlaying: false
+            isPlaying: false,
+            isHovered: null
         };
 
         this.audioElement = document.createElement('audio');
         this.audioElement.src = album.songs[0].audioSrc;
+
+        
     }
 
     play() {
@@ -44,6 +47,16 @@ class Album extends Component {
       }
     }
 
+    iconFunction(song, index) {
+      if (this.state.isPlaying && this.state.currentSong === song) {
+        return <span className="ion-md-pause"></span>
+      }else if (this.state.isHovered === index + 1){
+        return <span className="ion-md-play-circle"></span>
+      }else {
+        return <span>{index + 1}</span>
+      }
+    } 
+
     render() {
         return (
             <section className = "album">
@@ -57,7 +70,7 @@ class Album extends Component {
               </section>
               <table id="song-list">
                 <colgroup>
-                  <col id="song-number-column" />
+                  <col id="song-number-column" /> 
                   <col id="song-title-column" />
                   <col id="song-duration-column" />
                 </colgroup>
@@ -65,10 +78,17 @@ class Album extends Component {
                 <tbody>
                   {
                     this.state.album.songs.map( (song, index) =>
-                      <tr className="song" key={index} onClick={() => this.handleSongClick(song)} >
-                        <td>{index + 1}</td>
+                      <tr className="song" key={index} 
+                        onClick={() => this.handleSongClick(song)}
+                        onMouseEnter={() => this.setState({ isHovered: index + 1 })}
+                        onMouseLeave={() => this.setState({ isHovered: null })}
+                        >
+                        <td>
+                          {this.iconFunction(song,index)}
+                        </td>
                         <td>{song.title}</td>
                         <td>{song.duration}</td>
+                        <td>{this.audioElement.src}</td>
                       </tr>
                     )
                   }
