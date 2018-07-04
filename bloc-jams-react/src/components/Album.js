@@ -56,10 +56,20 @@ class Album extends Component {
       this.play();
     }
 
+    handleNextClick() {
+      const currentIndex = this.state.album.songs.findIndex(song => this.state.currentSong === song);
+      const highestIndex = this.state.album.songs.length - 1;
+      const newIndex = Math.ceil(highestIndex, currentIndex + 1);
+      const newSong = this.state.album.songs[newIndex];
+      console.log(newIndex);
+      this.setSong(newSong);
+      this.play();
+    }
+
     iconFunction(song, index) {
       if (this.state.isPlaying && this.state.currentSong === song) {
         return <span className='ion-md-pause'></span>
-      }else if (this.state.isHovered === index + 1){
+      }else if (this.state.currentSong === song || this.state.isHovered === index + 1) {
         return <span className='ion-md-play-circle'></span>
       }else {
         return <span>{index + 1}</span>
@@ -107,6 +117,7 @@ class Album extends Component {
                 currentSong={this.state.currentSong}
                 handleSongClick={() => this.handleSongClick(this.state.currentSong)}
                 handlePrevClick={() => this.handlePrevClick()}
+                handleNextClick={() => this.handleNextClick()}
                />
             </section>
         );
