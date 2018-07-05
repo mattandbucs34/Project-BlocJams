@@ -92,7 +92,17 @@ class Album extends Component {
     }
 
     formatTime(time) {
+      const floorTime = Math.floor(time);
+      const minutes = Math.floor(floorTime / 60);
+      const seconds = (floorTime % 60);
 
+      if(isNaN(time)) {return "-:--"}
+
+      if(seconds < 10 ){
+        return minutes + ":0" + seconds;
+      }else
+        return minutes + ":" + seconds;
+        
     }
 
     iconFunction(song, index) {
@@ -135,7 +145,7 @@ class Album extends Component {
                           {this.iconFunction(song,index)}
                         </td>
                         <td>{song.title}</td>
-                        <td>{song.duration}</td>
+                        <td>{this.formatTime(song.duration)}</td>
                       </tr>
                     )
                   }
@@ -149,6 +159,7 @@ class Album extends Component {
                 handleSongClick={() => this.handleSongClick(this.state.currentSong)}
                 handlePrevClick={() => this.handlePrevClick()}
                 handleNextClick={() => this.handleNextClick()}
+                formatTime={(e) => this.formatTime(e)}
                 handleTimeChange={(e) => this.handleTimeChange(e)}
                />
             </section>
