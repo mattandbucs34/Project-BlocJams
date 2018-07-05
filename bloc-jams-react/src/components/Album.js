@@ -91,20 +91,6 @@ class Album extends Component {
       this.setState({ currentTime: newTime });
     }
 
-    formatTime(time) {
-      const floorTime = Math.floor(time);
-      const minutes = Math.floor(floorTime / 60);
-      const seconds = (floorTime % 60);
-
-      if(isNaN(time)) {return "-:--"}
-
-      if(seconds < 10 ){
-        return minutes + ":0" + seconds;
-      }else
-        return minutes + ":" + seconds;
-        
-    }
-
     iconFunction(song, index) {
       if (this.state.isPlaying && this.state.currentSong === song) {
         return <span className='ion-md-pause'></span>
