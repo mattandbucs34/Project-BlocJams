@@ -91,10 +91,6 @@ class Album extends Component {
       this.setState({ currentTime: newTime });
     }
 
-    formatTime(time) {
-
-    }
-
     iconFunction(song, index) {
       if (this.state.isPlaying && this.state.currentSong === song) {
         return <span className='ion-md-pause'></span>
