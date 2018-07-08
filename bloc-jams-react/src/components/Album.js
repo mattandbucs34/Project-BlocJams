@@ -156,7 +156,7 @@ class Album extends Component {
                         <td>
                           {this.iconFunction(song,index)}
                         </td>
-                        <td>{song.title}</td>
+                        <td id='song-title'>{song.title}</td>
                         <td>{this.formatTime(song.duration)}</td>
                       </tr>
                     )
